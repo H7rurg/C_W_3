@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from src.models import Operation
 
@@ -46,4 +47,9 @@ def get_executed_operations(operations: list[Operation]) -> list[Operation]:
 
 
 def sort_operations_by_date(operations: list[Operation]) -> list[Operation]:
-    sorted(operations)
+    """
+    Функция сортировки по дате
+
+    """
+    return sorted(operations, key=lambda operation: datetime.strptime(operation.date, "%d.%m.%Y"), reverse=True)
+
