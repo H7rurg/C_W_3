@@ -26,7 +26,7 @@ class Operation:
 
         """
         iso_date = datetime.fromisoformat(date)
-        return iso_date.strftime("%d.%m.%Y")
+        return datetime.strftime(iso_date, "%d.%m.%Y")
 
     def convert_info_payment(self, info_payment: str) -> str:
         if info_payment:
@@ -36,7 +36,19 @@ class Operation:
                 num_payment = f"**{num_payment[-4:]}"
                 info_list.append(num_payment)
             else:
-
-
+                num_payment = info_list.pop()
+                num_payment = f"{num_payment[:4]} {num_payment[4:6]}** **** {num_payment[-4:]}"
+                info_list.append(num_payment)
             return " ".join(info_list)
-        return ""
+        return "Данные отсутствуют"
+
+
+    def __str__(self):
+        """
+        Функция вывода информации
+
+        """
+        return (f"{self.date} {self.description}\n"
+                f"{self.from_} -> {self.to}\n"
+                f"{self.operation_amount['amount']} {self.operation_amount['currency']['name']}")
+
